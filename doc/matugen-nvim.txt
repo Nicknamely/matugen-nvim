@@ -1,0 +1,54 @@
+matugen-nvim                               *matugen-nvim*
+
+matugen-nvim is a colorscheme that follows a matugen-generated Material You
+palette. It reads a JSON palette file, applies full highlight groups, and can
+watch for changes.
+
+=============================================================================
+USAGE                                                     *matugen-nvim-usage*
+
+Install with lazy.nvim, then set:
+>
+  vim.cmd.colorscheme("matugen-nvim")
+<
+
+With vim-plug, add:
+>
+  Plug 'yourname/matugen-nvim'
+<
+
+With native packages:
+>
+  git clone https://github.com/yourname/matugen-nvim \
+    ~/.local/share/nvim/site/pack/matugen/start/matugen-nvim
+<
+
+Configuration is provided via require("matugen-nvim").setup({}).
+
+=============================================================================
+CONFIGURATION                                       *matugen-nvim-config*
+
+Default options:
+>
+  {
+    palette_path = "~/.cache/matugen/nvim-colors.json",
+    transparent = true,
+    watch = true,
+    watch_debounce_ms = 120,
+    float_bg_blend = 0.6,
+    integrations = {
+      lualine = true,
+      snacks = true,
+      blink = true,
+    },
+  }
+<
+
+=============================================================================
+NOTES                                                 *matugen-nvim-notes*
+
+- This plugin expects a matugen JSON template output.
+- It keeps `termguicolors` enabled.
+
+=============================================================================
+EOF
