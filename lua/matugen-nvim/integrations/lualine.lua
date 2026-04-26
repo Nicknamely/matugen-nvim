@@ -44,6 +44,10 @@ function M.get()
 end
 
 function M.refresh()
+  if not package.loaded.lualine then
+    return
+  end
+
   local ok, lualine = pcall(require, "lualine")
   if not ok then
     return
