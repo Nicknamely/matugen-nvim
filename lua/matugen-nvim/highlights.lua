@@ -19,35 +19,13 @@ local function set(group, opts)
 end
 
 function M.apply(c, opts)
-  local function pick(value, fallback)
-    if value and value:sub(1, 1) == "#" then
-      return value
-    end
-    return fallback
-  end
-
   local bg_main = opts.transparent and "NONE" or c.background
-  local float_bg = pick(c.surface_variant, blend_hex(c.surface, c.background, opts.float_bg_blend or 0.6))
-  local selection = pick(c.primary_container, blend_hex(c.primary, c.background, 0.25))
-  local line_bg = pick(c.secondary_container, blend_hex(c.surface, c.background, 0.3))
-  local comment_fg = pick(c.base03, blend_hex(c.on_surface_variant, c.background, 0.7))
-  local cursor_bg = pick(c.base05, c.on_background)
-  local cursor_fg = pick(c.base00, c.background)
-  local syntax = {
-    comment = pick(c.base03, c.on_surface_variant),
-    keyword = pick(c.base0e, c.primary),
-    func = pick(c.base0d, c.secondary),
-    str = pick(c.base0b, c.tertiary),
-    number = pick(c.base09, c.on_surface_variant),
-    boolean = pick(c.base09, c.primary),
-    constant = pick(c.base0c, c.tertiary),
-    type = pick(c.base0a, c.secondary),
-    ident = pick(c.base05, c.on_surface),
-    operator = pick(c.base05, c.outline),
-    preproc = pick(c.base0e, c.primary),
-    special = pick(c.base0c, c.tertiary),
-    error = pick(c.base08, c.error),
-  }
+  local float_bg = blend_hex(c.surface, c.background, opts.float_bg_blend or 0.6)
+  local selection = blend_hex(c.primary, c.background, 0.25)
+  local line_bg = blend_hex(c.surface, c.background, 0.3)
+  local comment_fg = blend_hex(c.on_surface_variant, c.background, 0.7)
+  local cursor_bg = c.on_background
+  local cursor_fg = c.background
 
   set("Normal", { fg = c.on_background, bg = bg_main })
   set("NormalNC", { fg = c.on_surface, bg = bg_main })
@@ -92,46 +70,46 @@ function M.apply(c, opts)
   set("DiagnosticUnderlineWarn", { sp = c.tertiary, undercurl = true })
 
   set("Comment", { fg = comment_fg, italic = true })
-  set("Keyword", { fg = syntax.keyword, bold = true })
-  set("Function", { fg = syntax.func })
-  set("String", { fg = syntax.str })
-  set("Number", { fg = syntax.number })
-  set("Boolean", { fg = syntax.boolean, italic = true })
-  set("Constant", { fg = syntax.constant })
-  set("Type", { fg = syntax.type, italic = true })
-  set("Identifier", { fg = syntax.ident })
-  set("Operator", { fg = syntax.operator })
-  set("PreProc", { fg = syntax.preproc })
-  set("Special", { fg = syntax.special })
-  set("Error", { fg = syntax.error })
+  set("Keyword", { fg = c.primary, bold = true })
+  set("Function", { fg = c.secondary })
+  set("String", { fg = c.tertiary })
+  set("Number", { fg = c.on_surface_variant })
+  set("Boolean", { fg = c.primary, italic = true })
+  set("Constant", { fg = c.tertiary })
+  set("Type", { fg = c.secondary, italic = true })
+  set("Identifier", { fg = c.on_surface })
+  set("Operator", { fg = c.outline })
+  set("PreProc", { fg = c.primary })
+  set("Special", { fg = c.tertiary })
+  set("Error", { fg = c.error })
   set("Todo", { fg = c.on_primary, bg = c.primary, bold = true })
 
   set("@keyword", { link = "Keyword" })
-  set("@keyword.function", { fg = syntax.keyword, italic = true })
-  set("@keyword.return", { fg = syntax.keyword, bold = true })
+  set("@keyword.function", { fg = c.primary, italic = true })
+  set("@keyword.return", { fg = c.primary, bold = true })
   set("@function", { link = "Function" })
-  set("@function.builtin", { fg = syntax.func, italic = true })
-  set("@function.method", { fg = syntax.func })
-  set("@constructor", { fg = syntax.type, bold = true })
-  set("@variable", { fg = syntax.ident })
-  set("@variable.builtin", { fg = syntax.keyword, italic = true })
+  set("@function.builtin", { fg = c.secondary, italic = true })
+  set("@function.method", { fg = c.secondary })
+  set("@constructor", { fg = c.secondary, bold = true })
+  set("@variable", { fg = c.on_surface })
+  set("@variable.builtin", { fg = c.primary, italic = true })
   set("@variable.parameter", { fg = c.on_surface_variant, italic = true })
   set("@type", { link = "Type" })
-  set("@type.builtin", { fg = syntax.type, bold = true })
+  set("@type.builtin", { fg = c.secondary, bold = true })
   set("@string", { link = "String" })
-  set("@string.escape", { fg = syntax.error })
+  set("@string.escape", { fg = c.error })
   set("@number", { link = "Number" })
   set("@boolean", { link = "Boolean" })
   set("@constant", { link = "Constant" })
-  set("@constant.builtin", { fg = syntax.constant, bold = true })
+  set("@constant.builtin", { fg = c.tertiary, bold = true })
   set("@comment", { link = "Comment" })
-  set("@punctuation", { fg = syntax.operator })
+  set("@punctuation", { fg = c.outline })
   set("@operator", { link = "Operator" })
-  set("@tag", { fg = syntax.keyword })
-  set("@tag.attribute", { fg = syntax.func, italic = true })
-  set("@tag.delimiter", { fg = syntax.operator })
+  set("@tag", { fg = c.primary })
+  set("@tag.attribute", { fg = c.secondary, italic = true })
+  set("@tag.delimiter", { fg = c.outline })
   set("@namespace", { fg = c.on_surface_variant })
-  set("@field", { fg = syntax.ident })
+  set("@field", { fg = c.on_surface })
   set("@property", { fg = c.on_surface_variant })
 
   if opts.integrations and opts.integrations.snacks then
@@ -156,19 +134,19 @@ function M.apply(c, opts)
     set("BlinkCmpKindKeyword", { fg = c.primary })
   end
 
-  set("GitSignsAdd", { fg = pick(c.base0b, c.tertiary), bg = bg_main })
-  set("GitSignsChange", { fg = pick(c.base0d, c.secondary), bg = bg_main })
-  set("GitSignsDelete", { fg = pick(c.base08, c.error), bg = bg_main })
+  set("GitSignsAdd", { fg = c.tertiary, bg = bg_main })
+  set("GitSignsChange", { fg = c.secondary, bg = bg_main })
+  set("GitSignsDelete", { fg = c.error, bg = bg_main })
   set("IblIndent", { fg = c.outline_variant })
   set("IblScope", { fg = c.outline })
   set("CmpItemAbbr", { fg = c.on_surface })
   set("CmpItemAbbrMatch", { fg = c.primary, bold = true })
-  set("CmpItemKindFunction", { fg = syntax.func })
-  set("CmpItemKindVariable", { fg = syntax.ident })
-  set("CmpItemKindKeyword", { fg = syntax.keyword })
-  set("WhichKey", { fg = syntax.keyword })
-  set("WhichKeyDesc", { fg = syntax.ident })
-  set("WhichKeyGroup", { fg = syntax.func, italic = true })
+  set("CmpItemKindFunction", { fg = c.secondary })
+  set("CmpItemKindVariable", { fg = c.on_surface })
+  set("CmpItemKindKeyword", { fg = c.primary })
+  set("WhichKey", { fg = c.primary })
+  set("WhichKeyDesc", { fg = c.on_surface })
+  set("WhichKeyGroup", { fg = c.secondary, italic = true })
   set("WhichKeySeparator", { fg = c.outline })
   set("WhichKeyFloat", { bg = float_bg })
 end
