@@ -21,7 +21,7 @@ input_path  = "~/.config/matugen/templates/nvim.json"
 output_path = "~/.cache/matugen/nvim-colors.json"
 ```
 
-Example template:
+Example template (single file with MD3 + HSL-derived accents):
 
 ```json
 {
@@ -39,7 +39,15 @@ Example template:
   "on_error": "{{colors.on_error.default.hex}}",
   "tertiary": "{{colors.tertiary.default.hex}}",
   "outline": "{{colors.outline.default.hex}}",
-  "outline_variant": "{{colors.outline_variant.default.hex}}"
+  "outline_variant": "{{colors.outline_variant.default.hex}}",
+
+  "accent_red": "{{ colors.primary.default.hex | hue: 0 | saturate: 15 | lighten: 5 }}",
+  "accent_orange": "{{ colors.primary.default.hex | hue: 30 | saturate: 15 | lighten: 8 }}",
+  "accent_yellow": "{{ colors.primary.default.hex | hue: 60 | saturate: 10 | lighten: 12 }}",
+  "accent_green": "{{ colors.primary.default.hex | hue: 120 | saturate: 10 | lighten: 6 }}",
+  "accent_cyan": "{{ colors.primary.default.hex | hue: 180 | saturate: 10 | lighten: 4 }}",
+  "accent_blue": "{{ colors.primary.default.hex | hue: 220 | saturate: 10 | lighten: 2 }}",
+  "accent_magenta": "{{ colors.primary.default.hex | hue: 300 | saturate: 15 | lighten: 4 }}"
 }
 ```
 
@@ -135,6 +143,7 @@ Defaults in `lua/matugen-nvim/config.lua`:
   watch = true,
   watch_debounce_ms = 120,
   float_bg_blend = 0.6,
+  syntax_accent = "hsl",
   integrations = {
     lualine = true,
     snacks = true,

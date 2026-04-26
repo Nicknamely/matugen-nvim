@@ -32,6 +32,35 @@ With native packages:
 
 Configuration is provided via require("matugen-nvim").setup({}).
 
+Matugen template (single file with MD3 + HSL-derived accents):
+>
+  {
+    "primary": "{{ colors.primary.default.hex }}",
+    "on_primary": "{{ colors.on_primary.default.hex }}",
+    "secondary": "{{ colors.secondary.default.hex }}",
+    "on_secondary": "{{ colors.on_secondary.default.hex }}",
+    "surface": "{{ colors.surface.default.hex }}",
+    "on_surface": "{{ colors.on_surface.default.hex }}",
+    "surface_variant": "{{ colors.surface_variant.default.hex }}",
+    "on_surface_variant": "{{ colors.on_surface_variant.default.hex }}",
+    "background": "{{ colors.background.default.hex }}",
+    "on_background": "{{ colors.on_background.default.hex }}",
+    "error": "{{ colors.error.default.hex }}",
+    "on_error": "{{ colors.on_error.default.hex }}",
+    "tertiary": "{{ colors.tertiary.default.hex }}",
+    "outline": "{{ colors.outline.default.hex }}",
+    "outline_variant": "{{ colors.outline_variant.default.hex }}",
+
+    "accent_red": "{{ colors.primary.default.hex | hue: 0 | saturate: 15 | lighten: 5 }}",
+    "accent_orange": "{{ colors.primary.default.hex | hue: 30 | saturate: 15 | lighten: 8 }}",
+    "accent_yellow": "{{ colors.primary.default.hex | hue: 60 | saturate: 10 | lighten: 12 }}",
+    "accent_green": "{{ colors.primary.default.hex | hue: 120 | saturate: 10 | lighten: 6 }}",
+    "accent_cyan": "{{ colors.primary.default.hex | hue: 180 | saturate: 10 | lighten: 4 }}",
+    "accent_blue": "{{ colors.primary.default.hex | hue: 220 | saturate: 10 | lighten: 2 }}",
+    "accent_magenta": "{{ colors.primary.default.hex | hue: 300 | saturate: 15 | lighten: 4 }}"
+  }
+<
+
 =============================================================================
 CONFIGURATION                                       *matugen-nvim-config*
 
