@@ -16,6 +16,22 @@ local fallback = {
   tertiary = "#a6e3a1",
   outline = "#6c7086",
   outline_variant = "#45475a",
+  base00 = "#1e1e2e",
+  base01 = "#313244",
+  base02 = "#45475a",
+  base03 = "#6c7086",
+  base04 = "#7f849c",
+  base05 = "#cdd6f4",
+  base06 = "#bac2de",
+  base07 = "#f5e0dc",
+  base08 = "#f38ba8",
+  base09 = "#fab387",
+  base0a = "#f9e2af",
+  base0b = "#a6e3a1",
+  base0c = "#94e2d5",
+  base0d = "#89b4fa",
+  base0e = "#cba6f7",
+  base0f = "#f2cdcd",
 }
 
 local function normalize_hex(value)
