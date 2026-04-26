@@ -43,4 +43,18 @@ function M.get()
   return build_theme(palette)
 end
 
+function M.refresh()
+  local ok, lualine = pcall(require, "lualine")
+  if not ok then
+    return
+  end
+
+  local current = lualine.get_config() or {}
+  current.options = current.options or {}
+  current.options.theme = M.get()
+
+  lualine.setup(current)
+  lualine.refresh()
+end
+
 return M

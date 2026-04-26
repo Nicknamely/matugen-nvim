@@ -23,6 +23,10 @@ function M.apply()
   local palette = require("matugen-nvim.palette").load(opts.palette_path)
   require("matugen-nvim.highlights").apply(palette, opts)
 
+  if opts.integrations and opts.integrations.lualine then
+    require("matugen-nvim.integrations.lualine").refresh()
+  end
+
   vim.g.colors_name = "matugen-nvim"
 end
 
