@@ -26,20 +26,47 @@ function M.apply(c, opts)
   local comment_fg = blend_hex(c.on_surface_variant, c.background, 0.7)
   local cursor_bg = c.on_background
   local cursor_fg = c.background
-  local syntax = {
-    keyword = c.primary,
-    func = c.secondary,
-    type = c.tertiary,
-    string = c.tertiary,
-    number = c.on_secondary,
-    boolean = c.on_secondary,
-    constant = c.on_secondary,
-    ident = c.on_surface,
-    operator = c.outline,
-    param = c.on_surface_variant,
-    special = c.tertiary,
-    error = c.error,
-  }
+  local function pick(value, fallback)
+    if value and value:sub(1, 1) == "#" then
+      return value
+    end
+    return fallback
+  end
+
+  local syntax
+  if opts.syntax_accent == "hsl" then
+    syntax = {
+      comment = comment_fg,
+      keyword = pick(c.accent_magenta, c.primary),
+      func = pick(c.accent_blue, c.secondary),
+      type = pick(c.accent_yellow, c.tertiary),
+      string = pick(c.accent_green, c.tertiary),
+      number = pick(c.accent_orange, c.on_secondary),
+      boolean = pick(c.accent_orange, c.on_secondary),
+      constant = pick(c.accent_cyan, c.on_secondary),
+      ident = c.on_surface,
+      operator = c.outline,
+      param = c.on_surface_variant,
+      special = pick(c.accent_cyan, c.tertiary),
+      error = pick(c.accent_red, c.error),
+    }
+  else
+    syntax = {
+      comment = comment_fg,
+      keyword = c.primary,
+      func = c.secondary,
+      type = c.tertiary,
+      string = c.tertiary,
+      number = c.on_secondary,
+      boolean = c.on_secondary,
+      constant = c.on_secondary,
+      ident = c.on_surface,
+      operator = c.outline,
+      param = c.on_surface_variant,
+      special = c.tertiary,
+      error = c.error,
+    }
+  end
 
   set("Normal", { fg = c.on_background, bg = bg_main })
   set("NormalNC", { fg = c.on_surface, bg = bg_main })
@@ -83,7 +110,7 @@ function M.apply(c, opts)
   set("DiagnosticUnderlineError", { sp = c.error, undercurl = true })
   set("DiagnosticUnderlineWarn", { sp = c.tertiary, undercurl = true })
 
-  set("Comment", { fg = comment_fg, italic = true })
+  set("Comment", { fg = syntax.comment, italic = true })
   set("Keyword", { fg = syntax.keyword, bold = true })
   set("Function", { fg = syntax.func })
   set("String", { fg = syntax.string })

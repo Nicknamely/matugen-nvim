@@ -6,6 +6,7 @@ M.defaults = {
   watch = true,
   watch_debounce_ms = 120,
   float_bg_blend = 0.6,
+  syntax_accent = "hsl",
   integrations = {
     lualine = true,
     snacks = true,

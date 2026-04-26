@@ -16,6 +16,13 @@ local fallback = {
   tertiary = "#a6e3a1",
   outline = "#6c7086",
   outline_variant = "#45475a",
+  accent_red = "#f38ba8",
+  accent_orange = "#fab387",
+  accent_yellow = "#f9e2af",
+  accent_green = "#a6e3a1",
+  accent_cyan = "#94e2d5",
+  accent_blue = "#89b4fa",
+  accent_magenta = "#cba6f7",
 }
 
 local function normalize_hex(value)
